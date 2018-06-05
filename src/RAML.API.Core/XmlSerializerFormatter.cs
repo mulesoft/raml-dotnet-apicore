@@ -18,8 +18,8 @@ namespace RAML.Api.Core
             SupportedEncodings.Add(new UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
         }
 
-        public override Task WriteToStreamAsync(Type type, object value, Stream writeStream, HttpContent content,
-            TransportContext transportContext)
+
+        public  Task WriteToStreamAsync(Type type, object value, Stream writeStream, HttpContent content, TransportContext transportContext)
         {
             var taskSource = new TaskCompletionSource<object>();
             try
