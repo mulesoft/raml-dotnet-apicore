@@ -181,7 +181,7 @@ namespace Newtonsoft.JsonV4.Schema
             if (containerAttribute != null && !string.IsNullOrEmpty(containerAttribute.Description))
                 return containerAttribute.Description;
 
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
             DescriptionAttribute descriptionAttribute = ReflectionUtils.GetAttribute<DescriptionAttribute>(type);
             if (descriptionAttribute != null)
                 return descriptionAttribute.Description;
@@ -325,7 +325,7 @@ namespace Newtonsoft.JsonV4.Schema
                             }
                         }
                         break;
-#if !(NETFX_CORE || PORTABLE || PORTABLE40)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ) || PORTABLE40)
                     case JsonContractType.Serializable:
                         CurrentSchema.Type = AddNullType(JsonSchemaType.Object, valueRequired);
                         CurrentSchema.Id = GetTypeId(type, false);
@@ -392,7 +392,7 @@ namespace Newtonsoft.JsonV4.Schema
                 CurrentSchema.AllowAdditionalProperties = false;
         }
 
-#if !(NETFX_CORE || PORTABLE || PORTABLE40)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ) || PORTABLE40)
         private void GenerateISerializableContract(Type type, JsonISerializableContract contract)
         {
             CurrentSchema.AllowAdditionalProperties = true;
@@ -433,7 +433,7 @@ namespace Newtonsoft.JsonV4.Schema
                 case PrimitiveTypeCode.Empty:
                 case PrimitiveTypeCode.Object:
                     return schemaType | JsonSchemaType.String;
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
                 case PrimitiveTypeCode.DBNull:
                     return schemaType | JsonSchemaType.Null;
 #endif
@@ -449,7 +449,7 @@ namespace Newtonsoft.JsonV4.Schema
                 case PrimitiveTypeCode.UInt32:
                 case PrimitiveTypeCode.Int64:
                 case PrimitiveTypeCode.UInt64:
-#if !(PORTABLE || NET35 || NET20)
+#if !((PORTABLE || NETSTANDARD1_3 ) || NET35 || NET20)
                 case PrimitiveTypeCode.BigInteger:
 #endif
                     return schemaType | JsonSchemaType.Integer;

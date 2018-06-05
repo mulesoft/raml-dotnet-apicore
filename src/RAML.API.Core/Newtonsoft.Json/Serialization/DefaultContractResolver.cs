@@ -28,7 +28,7 @@ using System.Collections;
 using Newtonsoft.JsonV4.Converters;
 using Newtonsoft.JsonV4.Linq;
 using Newtonsoft.JsonV4.Utilities;
-#if !(NET35 || NET20 || PORTABLE || PORTABLE40)
+#if !(NET35 || NET20 || (PORTABLE || NETSTANDARD1_3 ) || PORTABLE40)
 using System.Collections.Concurrent;
 #endif
 using System.Collections.Generic;
@@ -39,7 +39,7 @@ using System.Dynamic;
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.Serialization;
-#if !(NETFX_CORE || PORTABLE || PORTABLE40)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ) || PORTABLE40)
 using System.Security.Permissions;
 #endif
 using System.Xml.Serialization;
@@ -97,7 +97,7 @@ namespace Newtonsoft.JsonV4.Serialization
 
         private static readonly IList<JsonConverter> BuiltInConverters = new List<JsonConverter>
         {
-#if !(NET20 || NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NET20 || NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
             new EntityKeyMemberConverter(),
 #endif
 #if !(NET35 || NET20 || PORTABLE40)
@@ -106,7 +106,7 @@ namespace Newtonsoft.JsonV4.Serialization
 #if !(PORTABLE40)
             new XmlNodeConverter(),
 #endif
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
             new BinaryConverter(),
             new DataSetConverter(),
             new DataTableConverter(),
@@ -140,7 +140,7 @@ namespace Newtonsoft.JsonV4.Serialization
             get { return JsonTypeReflector.DynamicCodeGeneration; }
         }
 
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
         /// <summary>
         /// Gets or sets the default members search flags.
         /// </summary>
@@ -159,7 +159,7 @@ namespace Newtonsoft.JsonV4.Serialization
         /// </value>
         public bool SerializeCompilerGeneratedMembers { get; set; }
 
-#if !(NETFX_CORE || PORTABLE || PORTABLE40)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ) || PORTABLE40)
         /// <summary>
         /// Gets or sets a value indicating whether to ignore the <see cref="ISerializable"/> interface when serializing and deserializing types.
         /// </summary>
@@ -201,7 +201,7 @@ namespace Newtonsoft.JsonV4.Serialization
             DefaultMembersSearchFlags = BindingFlags.Public | BindingFlags.Instance;
 #pragma warning restore 618
 #endif
-#if !(NETFX_CORE || PORTABLE || PORTABLE40)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ) || PORTABLE40)
             IgnoreSerializableAttribute = true;
 #endif
 
@@ -266,7 +266,7 @@ namespace Newtonsoft.JsonV4.Serialization
         protected virtual List<MemberInfo> GetSerializableMembers(Type objectType)
         {
             bool ignoreSerializableAttribute;
-#if !(NETFX_CORE || PORTABLE || PORTABLE40)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ) || PORTABLE40)
             ignoreSerializableAttribute = IgnoreSerializableAttribute;
 #else
             ignoreSerializableAttribute = true;
@@ -362,7 +362,7 @@ namespace Newtonsoft.JsonV4.Serialization
             InitializeContract(contract);
 
             bool ignoreSerializableAttribute;
-#if !(NETFX_CORE || PORTABLE || PORTABLE40)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ) || PORTABLE40)
             ignoreSerializableAttribute = IgnoreSerializableAttribute;
 #else
             ignoreSerializableAttribute = true;
@@ -389,7 +389,7 @@ namespace Newtonsoft.JsonV4.Serialization
                 }
                 else if (contract.MemberSerialization == MemberSerialization.Fields)
                 {
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
                     // mimic DataContractSerializer behaviour when populating fields by overriding default creator to create an uninitialized object
                     // note that this is only possible when the application is fully trusted so fall back to using the default constructor (if available) in partial trust
                     if (JsonTypeReflector.FullyTrusted)
@@ -758,7 +758,7 @@ namespace Newtonsoft.JsonV4.Serialization
 #endif
                 {
                     // ConcurrentDictionary throws an error here so don't use its OnDeserialized - http://json.codeplex.com/discussions/257093
-#if !(NET35 || NET20 || PORTABLE || PORTABLE40)
+#if !(NET35 || NET20 || (PORTABLE || NETSTANDARD1_3 ) || PORTABLE40)
                     if (!t.IsGenericType() || (t.GetGenericTypeDefinition() != typeof(ConcurrentDictionary<,>)))
                         contract.OnDeserializedCallbacks.AddRange(onDeserialized);
 #else
@@ -902,7 +902,7 @@ namespace Newtonsoft.JsonV4.Serialization
             return contract;
         }
 
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
         /// <summary>
         /// Creates a <see cref="JsonISerializableContract"/> for the given type.
         /// </summary>
@@ -990,7 +990,7 @@ namespace Newtonsoft.JsonV4.Serialization
             if (CanConvertToString(t))
                 return CreateStringContract(objectType);
 
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
             if (!IgnoreSerializableInterface && typeof(ISerializable).IsAssignableFrom(t))
                 return CreateISerializableContract(objectType);
 #endif
@@ -1000,7 +1000,7 @@ namespace Newtonsoft.JsonV4.Serialization
                 return CreateDynamicContract(objectType);
 #endif
 
-#if !(PORTABLE || NETFX_CORE)
+#if !((PORTABLE || NETSTANDARD1_3 ) || NETFX_CORE)
             // tested last because it is not possible to automatically deserialize custom IConvertible types
             if (IsIConvertible(t))
                 return CreatePrimitiveContract(t);
@@ -1016,7 +1016,7 @@ namespace Newtonsoft.JsonV4.Serialization
             return (typeCode != PrimitiveTypeCode.Empty && typeCode != PrimitiveTypeCode.Object);
         }
 
-#if !(PORTABLE || NETFX_CORE)
+#if !((PORTABLE || NETSTANDARD1_3 ) || NETFX_CORE)
         internal static bool IsIConvertible(Type t)
         {
             if (typeof(IConvertible).IsAssignableFrom(t)
@@ -1031,7 +1031,7 @@ namespace Newtonsoft.JsonV4.Serialization
 
         internal static bool CanConvertToString(Type type)
         {
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
             TypeConverter converter = ConvertUtils.GetConverter(type);
 
             // use the objectType's TypeConverter if it has one and can convert to a string
@@ -1128,7 +1128,7 @@ namespace Newtonsoft.JsonV4.Serialization
             // warning - this method use to cause errors with Intellitrace. Retest in VS Ultimate after changes
             IValueProvider valueProvider;
 
-#if !(PORTABLE40 || PORTABLE || NETFX_CORE)
+#if !(PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ) || NETFX_CORE)
             if (DynamicCodeGeneration)
                 valueProvider = new DynamicValueProvider(member);
             else
@@ -1229,7 +1229,7 @@ namespace Newtonsoft.JsonV4.Serialization
                 JsonTypeReflector.GetAttribute<JsonIgnoreAttribute>(attributeProvider) != null
                     // automatically ignore extension data dictionary property if it is public
                 || JsonTypeReflector.GetAttribute<JsonExtensionDataAttribute>(attributeProvider) != null
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
                 || JsonTypeReflector.GetAttribute<NonSerializedAttribute>(attributeProvider) != null
 #endif
                 ;

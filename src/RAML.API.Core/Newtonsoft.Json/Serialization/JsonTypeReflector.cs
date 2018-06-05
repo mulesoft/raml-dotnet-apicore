@@ -29,7 +29,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Security;
 using Newtonsoft.JsonV4.Utilities;
-#if !(NETFX_CORE || PORTABLE || PORTABLE40)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ) || PORTABLE40)
 using System.Security.Permissions;
 #endif
 #if NET20
@@ -133,7 +133,7 @@ namespace Newtonsoft.JsonV4.Serialization
                 return MemberSerialization.OptIn;
 #endif
 
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
             if (!ignoreSerializableAttribute)
             {
                 SerializableAttribute serializableAttribute = GetCachedAttribute<SerializableAttribute>(objectType);
@@ -188,7 +188,7 @@ namespace Newtonsoft.JsonV4.Serialization
             };
         }
 
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
         public static TypeConverter GetTypeConverter(Type type)
         {
             return TypeDescriptor.GetConverter(type);
@@ -335,14 +335,14 @@ namespace Newtonsoft.JsonV4.Serialization
 
         public static bool DynamicCodeGeneration
         {
-#if !(NET20 || NET35 || NETFX_CORE || PORTABLE)
+#if !(NET20 || NET35 || NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
             [SecuritySafeCritical]
 #endif
                 get
             {
                 if (_dynamicCodeGeneration == null)
                 {
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
                     try
                     {
                         new ReflectionPermission(ReflectionPermissionFlag.MemberAccess).Demand();
@@ -371,7 +371,7 @@ namespace Newtonsoft.JsonV4.Serialization
             {
                 if (_fullyTrusted == null)
                 {
-#if (NETFX_CORE || PORTABLE || PORTABLE40)
+#if (NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ) || PORTABLE40)
                     _fullyTrusted = false;
 #elif !(NET20 || NET35 || PORTABLE40)
                     AppDomain appDomain = AppDomain.CurrentDomain;
@@ -398,7 +398,7 @@ namespace Newtonsoft.JsonV4.Serialization
         {
             get
             {
-#if !(PORTABLE40 || PORTABLE || NETFX_CORE)
+#if !(PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ) || NETFX_CORE)
                 if (DynamicCodeGeneration)
                     return DynamicReflectionDelegateFactory.Instance;
 

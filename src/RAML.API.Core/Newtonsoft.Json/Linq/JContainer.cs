@@ -46,17 +46,17 @@ namespace Newtonsoft.JsonV4.Linq
     /// Represents a token that can contain other tokens.
     /// </summary>
     public abstract class JContainer : JToken, IList<JToken>
-#if !(NETFX_CORE || PORTABLE || PORTABLE40)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ) || PORTABLE40)
         , ITypedList, IBindingList
-#elif PORTABLE
+#elif (PORTABLE || NETSTANDARD1_3 )
     , INotifyCollectionChanged
 #endif
         , IList
-#if !(NET20 || NET35 || NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NET20 || NET35 || NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
         , INotifyCollectionChanged
 #endif
     {
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
         internal ListChangedEventHandler _listChanged;
         internal AddingNewEventHandler _addingNew;
 
@@ -130,7 +130,7 @@ namespace Newtonsoft.JsonV4.Linq
             return new List<JToken>();
         }
 
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
         /// <summary>
         /// Raises the <see cref="AddingNew"/> event.
         /// </summary>
@@ -357,7 +357,7 @@ namespace Newtonsoft.JsonV4.Linq
 
             ChildrenTokens.Insert(index, item);
 
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
             if (_listChanged != null)
                 OnListChanged(new ListChangedEventArgs(ListChangedType.ItemAdded, index));
 #endif
@@ -391,7 +391,7 @@ namespace Newtonsoft.JsonV4.Linq
 
             ChildrenTokens.RemoveAt(index);
 
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
             if (_listChanged != null)
                 OnListChanged(new ListChangedEventArgs(ListChangedType.ItemDeleted, index));
 #endif
@@ -455,7 +455,7 @@ namespace Newtonsoft.JsonV4.Linq
             existing.Previous = null;
             existing.Next = null;
 
-#if !(NETFX_CORE || PORTABLE || PORTABLE40)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ) || PORTABLE40)
             if (_listChanged != null)
                 OnListChanged(new ListChangedEventArgs(ListChangedType.ItemChanged, index));
 #endif
@@ -478,7 +478,7 @@ namespace Newtonsoft.JsonV4.Linq
 
             ChildrenTokens.Clear();
 
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
             if (_listChanged != null)
                 OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
 #endif
@@ -751,7 +751,7 @@ namespace Newtonsoft.JsonV4.Linq
             return hashCode;
         }
 
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
         string ITypedList.GetListName(PropertyDescriptor[] listAccessors)
         {
             return string.Empty;
@@ -920,7 +920,7 @@ namespace Newtonsoft.JsonV4.Linq
         #endregion
 
         #region IBindingList Members
-#if !(NETFX_CORE || PORTABLE || PORTABLE40)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ) || PORTABLE40)
         void IBindingList.AddIndex(PropertyDescriptor property)
         {
         }

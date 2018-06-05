@@ -182,7 +182,7 @@ namespace Newtonsoft.JsonV4.Serialization
                     SerializeDynamic(writer, (IDynamicMetaObjectProvider)value, (JsonDynamicContract)valueContract, member, containerContract, containerProperty);
                     break;
 #endif
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
                 case JsonContractType.Serializable:
                     SerializeISerializable(writer, (ISerializable)value, (JsonISerializableContract)valueContract, member, containerContract, containerProperty);
                     break;
@@ -321,7 +321,7 @@ namespace Newtonsoft.JsonV4.Serialization
 
         internal static bool TryConvertToString(object value, Type type, out string s)
         {
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
             TypeConverter converter = ConvertUtils.GetConverter(type);
 
             // use the objectType's TypeConverter if it has one and can convert to a string
@@ -337,7 +337,7 @@ namespace Newtonsoft.JsonV4.Serialization
             }
 #endif
 
-#if NETFX_CORE || PORTABLE
+#if NETFX_CORE || (PORTABLE || NETSTANDARD1_3 )
       if (value is Guid || value is Uri || value is TimeSpan)
       {
         s = value.ToString();
@@ -725,7 +725,7 @@ namespace Newtonsoft.JsonV4.Serialization
             return writeMetadataObject;
         }
 
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
 #if !(NET20 || NET35)
         [SecuritySafeCritical]
 #endif

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-#if !(NET20 || NET35 || PORTABLE || PORTABLE40)
+#if !(NET20 || NET35 || (PORTABLE || NETSTANDARD1_3 ) || PORTABLE40)
 using System.Numerics;
 #endif
 using System.Text;
@@ -143,7 +143,7 @@ namespace Newtonsoft.JsonV4.Serialization
 
         public override void WriteValue(object value)
         {
-#if !(NET20 || NET35 || PORTABLE || PORTABLE40)
+#if !(NET20 || NET35 || (PORTABLE || NETSTANDARD1_3 ) || PORTABLE40)
             if (value is BigInteger)
             {
                 _textWriter.WriteValue(value);

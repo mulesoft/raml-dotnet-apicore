@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-#if PORTABLE
+#if (PORTABLE || NETSTANDARD1_3 )
 using System.Reflection;
 #endif
 
@@ -12,7 +12,7 @@ namespace RAML.Api.Core
 		{
 			get
 			{
-#if !PORTABLE
+#if !(PORTABLE || NETSTANDARD1_3 )
                 var properties = this.GetType().GetProperties().Where(p => p.Name != "Headers" && p.GetValue(this) != null);
 #else
                 var properties = this.GetType().GetTypeInfo().DeclaredProperties.Where(p => p.Name != "Headers" && p.GetValue(this) != null);

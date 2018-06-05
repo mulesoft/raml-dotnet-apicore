@@ -25,7 +25,7 @@
 
 using System;
 using System.Collections.Generic;
-#if !(PORTABLE || PORTABLE40 || NET35 || NET20)
+#if !((PORTABLE || NETSTANDARD1_3 ) || PORTABLE40 || NET35 || NET20)
 using System.Numerics;
 #endif
 using System.Reflection;
@@ -43,7 +43,7 @@ using Newtonsoft.JsonV4.Serialization;
 
 namespace Newtonsoft.JsonV4.Utilities
 {
-#if (NETFX_CORE || PORTABLE || PORTABLE40)
+#if (NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ) || PORTABLE40)
     internal enum MemberTypes
     {
         Property,
@@ -54,7 +54,7 @@ namespace Newtonsoft.JsonV4.Utilities
     }
 #endif
 
-#if NETFX_CORE || PORTABLE
+#if NETFX_CORE || (PORTABLE || NETSTANDARD1_3 )
     [Flags]
     internal enum BindingFlags
     {
@@ -87,7 +87,7 @@ namespace Newtonsoft.JsonV4.Utilities
 
         static ReflectionUtils()
         {
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
             EmptyTypes = Type.EmptyTypes;
 #else
             EmptyTypes = new Type[0];
@@ -667,7 +667,7 @@ namespace Newtonsoft.JsonV4.Utilities
             return (attributes != null) ? attributes.SingleOrDefault() : null;
         }
 
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
         public static T[] GetAttributes<T>(object attributeProvider, bool inherit) where T : Attribute
         {
             return (T[])GetAttributes(attributeProvider, typeof(T), inherit);
@@ -796,7 +796,7 @@ namespace Newtonsoft.JsonV4.Utilities
             ValidationUtils.ArgumentNotNull(targetType, "targetType");
 
             List<MemberInfo> fieldInfos = new List<MemberInfo>(targetType.GetFields(bindingAttr));
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
             // Type.GetFields doesn't return inherited private fields
             // manually find private fields from base class
             GetChildPrivateFields(fieldInfos, targetType, bindingAttr);
@@ -805,7 +805,7 @@ namespace Newtonsoft.JsonV4.Utilities
             return fieldInfos.Cast<FieldInfo>();
         }
 
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
         private static void GetChildPrivateFields(IList<MemberInfo> initialFields, Type targetType, BindingFlags bindingAttr)
         {
             // fix weirdness with private FieldInfos only being returned for the current Type
@@ -956,7 +956,7 @@ namespace Newtonsoft.JsonV4.Utilities
                     return 0m;
                 case PrimitiveTypeCode.DateTime:
                     return new DateTime();
-#if !(PORTABLE || PORTABLE40 || NET35 || NET20)
+#if !((PORTABLE || NETSTANDARD1_3 ) || PORTABLE40 || NET35 || NET20)
                 case PrimitiveTypeCode.BigInteger:
                     return new BigInteger();
 #endif

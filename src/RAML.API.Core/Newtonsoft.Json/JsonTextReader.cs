@@ -27,7 +27,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Newtonsoft.JsonV4.Utilities;
-#if !(NET20 || NET35 || PORTABLE40 || PORTABLE)
+#if !(NET20 || NET35 || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
 using System.Numerics;
 #endif
 using System.Text;
@@ -1294,7 +1294,7 @@ namespace Newtonsoft.JsonV4
                     }
                     else if (parseResult == ParseResult.Overflow)
                     {
-#if !(NET20 || NET35 || PORTABLE40 || PORTABLE)
+#if !(NET20 || NET35 || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
                         string number = _stringReference.ToString();
 
                         if (number.Length > MaximumJavascriptIntegerCharacterLength)
@@ -1596,7 +1596,7 @@ namespace Newtonsoft.JsonV4
             base.Close();
 
             if (CloseInput && _reader != null)
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
                 _reader.Close();
 #else
                 _reader.Dispose();

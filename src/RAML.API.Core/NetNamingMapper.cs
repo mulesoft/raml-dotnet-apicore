@@ -63,7 +63,7 @@ namespace Raml.Common
 
 		public static string RemoveIndalidChars(string input)
 		{
-#if !PORTABLE
+#if !(PORTABLE || NETSTANDARD1_3 )
             var validnamespace = Path.GetInvalidPathChars()
 				.Aggregate(input, (current, invalidChar) => 
 					current.Replace(invalidChar.ToString(CultureInfo.InvariantCulture), string.Empty));
@@ -79,7 +79,7 @@ namespace Raml.Common
 
 		public static bool HasIndalidChars(string input)
 		{
-#if !PORTABLE
+#if !(PORTABLE || NETSTANDARD1_3 )
 			return Path.GetInvalidPathChars().Any(input.Contains);
 #else
             return (input.IndexOfAny(Path.GetInvalidPathChars()) >= 0);
@@ -118,7 +118,7 @@ namespace Raml.Common
 			if (!input.Contains("{"))
 				return input;
 
-#if !PORTABLE
+#if !(PORTABLE || NETSTANDARD1_3 )
 			input = input.Substring(0, input.IndexOf("{", StringComparison.InvariantCulture)) + "By" +
 			        input.Substring(input.IndexOf("{", StringComparison.InvariantCulture));
 #else

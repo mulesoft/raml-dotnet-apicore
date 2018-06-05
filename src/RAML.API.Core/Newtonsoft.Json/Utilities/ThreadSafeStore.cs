@@ -78,7 +78,7 @@ namespace Newtonsoft.JsonV4.Utilities
                     Dictionary<TKey, TValue> newStore = new Dictionary<TKey, TValue>(_store);
                     newStore[key] = value;
 
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
                     Thread.MemoryBarrier();
 #endif
                     _store = newStore;

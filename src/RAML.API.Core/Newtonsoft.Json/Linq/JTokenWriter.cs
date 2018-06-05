@@ -26,7 +26,7 @@
 using System;
 using System.Globalization;
 using Newtonsoft.JsonV4.Utilities;
-#if !(NET20 || NET35 || PORTABLE40 || PORTABLE)
+#if !(NET20 || NET35 || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
 using System.Numerics;
 #endif
 
@@ -188,7 +188,7 @@ namespace Newtonsoft.JsonV4.Linq
         /// <param name="value">The <see cref="Object"/> value to write.</param>
         public override void WriteValue(object value)
         {
-#if !(NET20 || NET35 || PORTABLE || PORTABLE40)
+#if !(NET20 || NET35 || (PORTABLE || NETSTANDARD1_3 ) || PORTABLE40)
             if (value is BigInteger)
             {
                 InternalWriteValue(JsonToken.Integer);
@@ -350,7 +350,7 @@ namespace Newtonsoft.JsonV4.Linq
         {
             base.WriteValue(value);
             string s = null;
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
             s = value.ToString(CultureInfo.InvariantCulture);
 #else
             s = value.ToString();

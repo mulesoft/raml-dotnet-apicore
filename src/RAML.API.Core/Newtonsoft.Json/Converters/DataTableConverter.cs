@@ -27,7 +27,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using Newtonsoft.JsonV4.Utilities;
 using Newtonsoft.JsonV4.Serialization;
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
 using System;
 using System.Data;
 

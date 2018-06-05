@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Net;
-#if PORTABLE
+#if (PORTABLE || NETSTANDARD1_3 )
 using System.Reflection;
 #endif
 
@@ -14,7 +14,7 @@ namespace RAML.Api.Core
 				return;
 
 			var propName = names[statusCode];
-#if !PORTABLE
+#if !(PORTABLE || NETSTANDARD1_3 )
 			GetType().GetProperties().First(p => p.Name == propName).SetValue(this, model);
 #else
             GetType().GetTypeInfo().DeclaredProperties.First(p => p.Name == propName).SetValue(this, model);

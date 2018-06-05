@@ -42,7 +42,7 @@ using System.Linq;
 namespace Newtonsoft.JsonV4.Converters
 {
     #region XmlNodeWrappers
-#if !NETFX_CORE && !PORTABLE && !PORTABLE40
+#if !NETFX_CORE && !(PORTABLE || NETSTANDARD1_3 ) && !PORTABLE40
     internal class XmlDocumentWrapper : XmlNodeWrapper, IXmlDocument
     {
         private readonly XmlDocument _document;
@@ -926,7 +926,7 @@ namespace Newtonsoft.JsonV4.Converters
             if (value is XObject)
                 return XContainerWrapper.WrapNode((XObject)value);
 #endif
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
             if (value is XmlNode)
                 return new XmlNodeWrapper((XmlNode)value);
 #endif
@@ -1254,7 +1254,7 @@ namespace Newtonsoft.JsonV4.Converters
                 rootNode = document;
             }
 #endif
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
             if (typeof(XmlNode).IsAssignableFrom(objectType))
             {
                 if (objectType != typeof(XmlDocument))
@@ -1441,7 +1441,7 @@ namespace Newtonsoft.JsonV4.Converters
 #endif
 
                 DateTime d = Convert.ToDateTime(reader.Value, CultureInfo.InvariantCulture);
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
                 return XmlConvert.ToString(d, DateTimeUtils.ToSerializationMode(d.Kind));
 #else
                 return XmlConvert.ToString(d);
@@ -1770,7 +1770,7 @@ namespace Newtonsoft.JsonV4.Converters
             if (typeof(XObject).IsAssignableFrom(valueType))
                 return true;
 #endif
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
             if (typeof(XmlNode).IsAssignableFrom(valueType))
                 return true;
 #endif

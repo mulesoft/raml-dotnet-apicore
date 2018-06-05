@@ -25,7 +25,7 @@ namespace RAML.Api.Core
 
         public static async Task<SchemaValidationResults> IsValidAsync(string rawSchema, HttpContent content)
         {
-#if !PORTABLE
+#if !(PORTABLE || NETSTANDARD1_3 )
             if (content.Headers.ContentType == null || !content.Headers.ContentType.MediaType.Equals("application/json",
                 StringComparison.InvariantCultureIgnoreCase))
 #else
@@ -42,7 +42,7 @@ namespace RAML.Api.Core
 
         public static SchemaValidationResults IsValid(string rawSchema, HttpContent content)
         {
-#if !PORTABLE
+#if !(PORTABLE || NETSTANDARD1_3 )
             if (content.Headers.ContentType == null || !content.Headers.ContentType.MediaType.Equals("application/json",
                 StringComparison.InvariantCultureIgnoreCase))
 #else

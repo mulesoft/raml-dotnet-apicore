@@ -181,7 +181,7 @@ namespace Newtonsoft.JsonV4.Serialization
             CreatorParameters = new JsonPropertyCollection(UnderlyingType);
         }
 
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
 #if !(NET20 || NET35)
         [SecuritySafeCritical]
 #endif

@@ -24,7 +24,7 @@
 #endregion
 
 using Newtonsoft.JsonV4.Utilities;
-#if !(PORTABLE40 || PORTABLE || NETFX_CORE)
+#if !(PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ) || NETFX_CORE)
 using System;
 using System.Collections.Generic;
 #if NET20

@@ -27,7 +27,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.JsonV4.Utilities;
-#if !(NET20 || NET35 || PORTABLE40 || PORTABLE)
+#if !(NET20 || NET35 || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
 using System.Numerics;
 #endif
 using System.Globalization;
@@ -493,7 +493,7 @@ namespace Newtonsoft.JsonV4
                         WriteComment((reader.Value != null) ? reader.Value.ToString() : null);
                         break;
                     case JsonToken.Integer:
-#if !(NET20 || NET35 || PORTABLE || PORTABLE40)
+#if !(NET20 || NET35 || (PORTABLE || NETSTANDARD1_3 ) || PORTABLE40)
                         if (reader.Value is BigInteger)
                         {
                             WriteValue((BigInteger)reader.Value);
@@ -1219,7 +1219,7 @@ namespace Newtonsoft.JsonV4
             }
             else
             {
-#if !(NET20 || NET35 || PORTABLE || PORTABLE40)
+#if !(NET20 || NET35 || (PORTABLE || NETSTANDARD1_3 ) || PORTABLE40)
                 // this is here because adding a WriteValue(BigInteger) to JsonWriter will
                 // mean the user has to add a reference to System.Numerics.dll
                 if (value is BigInteger)
@@ -1368,7 +1368,7 @@ namespace Newtonsoft.JsonV4
                 case PrimitiveTypeCode.TimeSpanNullable:
                     writer.WriteValue((value == null) ? (TimeSpan?)null : (TimeSpan)value);
                     break;
-#if !(PORTABLE || PORTABLE40 || NET35 || NET20)
+#if !((PORTABLE || NETSTANDARD1_3 ) || PORTABLE40 || NET35 || NET20)
                 case PrimitiveTypeCode.BigInteger:
                     // this will call to WriteValue(object)
                     writer.WriteValue((BigInteger)value);
@@ -1387,13 +1387,13 @@ namespace Newtonsoft.JsonV4
                 case PrimitiveTypeCode.Bytes:
                     writer.WriteValue((byte[])value);
                     break;
-#if !(PORTABLE || NETFX_CORE)
+#if !((PORTABLE || NETSTANDARD1_3 ) || NETFX_CORE)
                 case PrimitiveTypeCode.DBNull:
                     writer.WriteNull();
                     break;
 #endif
                 default:
-#if !(PORTABLE || NETFX_CORE)
+#if !((PORTABLE || NETSTANDARD1_3 ) || NETFX_CORE)
                     if (value is IConvertible)
                     {
                         // the value is a non-standard IConvertible

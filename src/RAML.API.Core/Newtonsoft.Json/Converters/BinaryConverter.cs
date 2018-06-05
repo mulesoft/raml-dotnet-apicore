@@ -24,7 +24,7 @@
 #endregion
 
 using Newtonsoft.JsonV4.Utilities;
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
 using System;
 using System.Data.SqlTypes;
 using System.Globalization;

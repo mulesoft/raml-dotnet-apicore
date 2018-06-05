@@ -1,5 +1,5 @@
 ﻿
-#if (NETFX_CORE || PORTABLE40 || PORTABLE)
+#if (NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
 using Newtonsoft.Json.Serialization;
 
 namespace Newtonsoft.JsonV4

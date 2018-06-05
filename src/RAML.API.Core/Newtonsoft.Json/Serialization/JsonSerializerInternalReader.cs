@@ -35,7 +35,7 @@ using System.Dynamic;
 #endif
 using System.Diagnostics;
 using System.Globalization;
-#if !(PORTABLE || PORTABLE40 || NET35 || NET20)
+#if !((PORTABLE || NETSTANDARD1_3 ) || PORTABLE40 || NET35 || NET20)
 using System.Numerics;
 #endif
 using System.Reflection;
@@ -58,7 +58,7 @@ namespace Newtonsoft.JsonV4.Serialization
         }
 
         private JsonSerializerProxy _internalSerializer;
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
         private JsonFormatterConverter _formatterConverter;
 #endif
 
@@ -191,7 +191,7 @@ namespace Newtonsoft.JsonV4.Serialization
             return _internalSerializer;
         }
 
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
         private JsonFormatterConverter GetFormatterConverter()
         {
             if (_formatterConverter == null)
@@ -302,7 +302,7 @@ namespace Newtonsoft.JsonV4.Serialization
                         return EnsureType(reader, constructorName, CultureInfo.InvariantCulture, contract, objectType);
                     case JsonToken.Null:
                     case JsonToken.Undefined:
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
                         if (objectType == typeof(DBNull))
                             return DBNull.Value;
 #endif
@@ -327,7 +327,7 @@ namespace Newtonsoft.JsonV4.Serialization
             {
                 case JsonContractType.Object:
                 case JsonContractType.Dictionary:
-#if !(NETFX_CORE || PORTABLE || PORTABLE40)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ) || PORTABLE40)
                 case JsonContractType.Serializable:
 #endif
 #if !(NET35 || NET20 || PORTABLE40)
@@ -499,7 +499,7 @@ namespace Newtonsoft.JsonV4.Serialization
                     JsonDynamicContract dynamicContract = (JsonDynamicContract)contract;
                     return CreateDynamic(reader, dynamicContract, member, id);
 #endif
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
                 case JsonContractType.Serializable:
                     JsonISerializableContract serializableContract = (JsonISerializableContract)contract;
                     return CreateISerializable(reader, serializableContract, member, id);
@@ -845,7 +845,7 @@ To fix this error either change the JSON to a {1} or change the deserialized typ
                                 return Enum.ToObject(contract.NonNullableUnderlyingType, value);
                         }
 
-#if !(PORTABLE || PORTABLE40 || NET35 || NET20)
+#if !((PORTABLE || NETSTANDARD1_3 ) || PORTABLE40 || NET35 || NET20)
                         if (value is BigInteger)
                             return ConvertUtils.FromBigInteger((BigInteger)value, targetType);
 #endif
@@ -1426,7 +1426,7 @@ To fix this error either change the JSON to a {1} or change the deserialized typ
             return underlyingList;
         }
 
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
         private object CreateISerializable(JsonReader reader, JsonISerializableContract contract, JsonProperty member, string id)
         {
             Type objectType = contract.UnderlyingType;

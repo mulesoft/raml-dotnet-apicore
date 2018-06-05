@@ -94,7 +94,7 @@ namespace Newtonsoft.JsonV4.Schema
                     return readall.ReadToEnd();
                 }
             }).Result;
-#elif PORTABLE
+#elif (PORTABLE || NETSTANDARD1_3 )
             var response = System.Threading.Tasks.Task.Run(async () => await System.Threading.Tasks.Task.Factory.FromAsync<System.Net.WebResponse>
               (webcall.BeginGetResponse, webcall.EndGetResponse, null)).Result;
 

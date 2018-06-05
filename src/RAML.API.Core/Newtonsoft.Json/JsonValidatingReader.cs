@@ -28,7 +28,7 @@ using System.Collections.Generic;
 using Newtonsoft.JsonV4.Linq;
 using Newtonsoft.JsonV4.Schema;
 using Newtonsoft.JsonV4.Utilities;
-#if !(NET20 || NET35 || PORTABLE40 || PORTABLE)
+#if !(NET20 || NET35 || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
 using System.Numerics;
 #endif
 using System.Globalization;
@@ -853,7 +853,7 @@ namespace Newtonsoft.JsonV4
             if (schema.MultipleOf != null)
             {
                 bool notMultiple = false;
-#if !(NET20 || NET35 || PORTABLE40 || PORTABLE)
+#if !(NET20 || NET35 || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
                 if (value is BigInteger)
                 {
                     // not that this will lose any decimal point on MultipleOf

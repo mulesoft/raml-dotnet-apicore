@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Net.Http.Headers;
 using Raml.Common;
-#if PORTABLE
+#if (PORTABLE || NETSTANDARD1_3 )
 using System.Reflection;
 #endif
 
@@ -11,7 +11,7 @@ namespace RAML.Api.Core
 	{
 		public void SetProperties(HttpResponseHeaders headers)
 		{
-#if !PORTABLE
+#if !(PORTABLE || NETSTANDARD1_3 )
             var properties = this.GetType().GetProperties().Where(p => p.GetValue(this) != null);
 #else
             var properties = this.GetType().GetTypeInfo().DeclaredProperties.Where(p => p.GetValue(this) != null);

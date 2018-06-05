@@ -36,7 +36,7 @@ namespace Newtonsoft.JsonV4.Utilities
 {
     internal static class TypeExtensions
     {
-#if NETFX_CORE || PORTABLE
+#if NETFX_CORE || (PORTABLE || NETSTANDARD1_3 )
         private static BindingFlags DefaultFlags = BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance;
 
         public static MethodInfo GetGetMethod(this PropertyInfo propertyInfo)
@@ -80,7 +80,7 @@ namespace Newtonsoft.JsonV4.Utilities
 
         public static MethodInfo Method(this Delegate d)
         {
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
             return d.Method;
 #else
             return d.GetMethodInfo();
@@ -89,7 +89,7 @@ namespace Newtonsoft.JsonV4.Utilities
 
         public static MemberTypes MemberType(this MemberInfo memberInfo)
         {
-#if !(NETFX_CORE || PORTABLE || PORTABLE40)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ) || PORTABLE40)
             return memberInfo.MemberType;
 #else
             if (memberInfo is PropertyInfo)
@@ -107,7 +107,7 @@ namespace Newtonsoft.JsonV4.Utilities
 
         public static bool ContainsGenericParameters(this Type type)
         {
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
             return type.ContainsGenericParameters;
 #else
             return type.GetTypeInfo().ContainsGenericParameters;
@@ -116,7 +116,7 @@ namespace Newtonsoft.JsonV4.Utilities
 
         public static bool IsInterface(this Type type)
         {
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
             return type.IsInterface;
 #else
             return type.GetTypeInfo().IsInterface;
@@ -125,7 +125,7 @@ namespace Newtonsoft.JsonV4.Utilities
 
         public static bool IsGenericType(this Type type)
         {
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
             return type.IsGenericType;
 #else
             return type.GetTypeInfo().IsGenericType;
@@ -134,7 +134,7 @@ namespace Newtonsoft.JsonV4.Utilities
 
         public static bool IsGenericTypeDefinition(this Type type)
         {
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
             return type.IsGenericTypeDefinition;
 #else
             return type.GetTypeInfo().IsGenericTypeDefinition;
@@ -143,7 +143,7 @@ namespace Newtonsoft.JsonV4.Utilities
 
         public static Type BaseType(this Type type)
         {
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
             return type.BaseType;
 #else
             return type.GetTypeInfo().BaseType;
@@ -152,7 +152,7 @@ namespace Newtonsoft.JsonV4.Utilities
 
         public static Assembly Assembly(this Type type)
         {
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
             return type.Assembly;
 #else
             return type.GetTypeInfo().Assembly;
@@ -161,7 +161,7 @@ namespace Newtonsoft.JsonV4.Utilities
 
         public static bool IsEnum(this Type type)
         {
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
             return type.IsEnum;
 #else
             return type.GetTypeInfo().IsEnum;
@@ -170,7 +170,7 @@ namespace Newtonsoft.JsonV4.Utilities
 
         public static bool IsClass(this Type type)
         {
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
             return type.IsClass;
 #else
             return type.GetTypeInfo().IsClass;
@@ -179,7 +179,7 @@ namespace Newtonsoft.JsonV4.Utilities
 
         public static bool IsSealed(this Type type)
         {
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
             return type.IsSealed;
 #else
             return type.GetTypeInfo().IsSealed;
@@ -221,14 +221,14 @@ namespace Newtonsoft.JsonV4.Utilities
         }
 #endif
 
-#if (NETFX_CORE || PORTABLE)
+#if (NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
         public static MethodInfo GetBaseDefinition(this MethodInfo method)
         {
             return method.GetRuntimeBaseDefinition();
         }
 #endif
 
-#if (NETFX_CORE || PORTABLE)
+#if (NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
         public static bool IsDefined(this Type type, Type attributeType, bool inherit)
         {
             return type.GetTypeInfo().CustomAttributes.Any(a => a.AttributeType == attributeType);
@@ -513,7 +513,7 @@ namespace Newtonsoft.JsonV4.Utilities
 
         public static bool IsAbstract(this Type type)
         {
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
             return type.IsAbstract;
 #else
             return type.GetTypeInfo().IsAbstract;
@@ -522,7 +522,7 @@ namespace Newtonsoft.JsonV4.Utilities
 
         public static bool IsVisible(this Type type)
         {
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
             return type.IsVisible;
 #else
             return type.GetTypeInfo().IsVisible;
@@ -531,7 +531,7 @@ namespace Newtonsoft.JsonV4.Utilities
 
         public static bool IsValueType(this Type type)
         {
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
             return type.IsValueType;
 #else
             return type.GetTypeInfo().IsValueType;

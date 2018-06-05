@@ -29,7 +29,7 @@ using System.Globalization;
 using Newtonsoft.JsonV4.Converters;
 using Newtonsoft.JsonV4.Linq;
 using Newtonsoft.JsonV4.Utilities;
-#if !(NET20 || NET35 || PORTABLE40 || PORTABLE)
+#if !(NET20 || NET35 || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
 using System.Numerics;
 #endif
 #if !(NET20 || NET35 || PORTABLE40)
@@ -238,7 +238,7 @@ namespace Newtonsoft.JsonV4
             return value.ToString(null, CultureInfo.InvariantCulture);
         }
 
-#if !(NET20 || NET35 || PORTABLE40 || PORTABLE)
+#if !(NET20 || NET35 || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
         private static string ToStringInternal(BigInteger value)
         {
             return value.ToString(null, CultureInfo.InvariantCulture);
@@ -358,7 +358,7 @@ namespace Newtonsoft.JsonV4
         {
             string text = null;
 
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
             text = value.ToString("D", CultureInfo.InvariantCulture);
 #else
             text = value.ToString("D");
@@ -468,7 +468,7 @@ namespace Newtonsoft.JsonV4
                     return ToString((DateTime)value);
                 case PrimitiveTypeCode.Decimal:
                     return ToString((decimal)value);
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ))
                 case PrimitiveTypeCode.DBNull:
                     return Null;
 #endif
@@ -482,7 +482,7 @@ namespace Newtonsoft.JsonV4
                     return ToString((Uri)value);
                 case PrimitiveTypeCode.TimeSpan:
                     return ToString((TimeSpan)value);
-#if !(NET20 || NET35 || PORTABLE40 || PORTABLE)
+#if !(NET20 || NET35 || PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ))
                 case PrimitiveTypeCode.BigInteger:
                     return ToStringInternal((BigInteger)value);
 #endif
@@ -956,7 +956,7 @@ namespace Newtonsoft.JsonV4
         }
 #endif
 
-#if !(PORTABLE40 || PORTABLE || NETFX_CORE)
+#if !(PORTABLE40 || (PORTABLE || NETSTANDARD1_3 ) || NETFX_CORE)
         /// <summary>
         /// Serializes the XML node to a JSON string.
         /// </summary>

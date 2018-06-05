@@ -44,7 +44,7 @@ namespace Newtonsoft.JsonV4.Serialization
 #if !(NET35 || NET20 || PORTABLE40)
         Dynamic,
 #endif
-#if !(NETFX_CORE || PORTABLE || PORTABLE40)
+#if !(NETFX_CORE || (PORTABLE || NETSTANDARD1_3 ) || PORTABLE40)
         Serializable,
 #endif
         Linq
