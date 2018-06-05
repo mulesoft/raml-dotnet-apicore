@@ -120,9 +120,9 @@ namespace Raml.Tools.Tests
             var proxy = new Movies.MoviesApi(client);
             proxy.SchemaValidation.RaiseExceptions = true;
                         
-            var movies = await proxy.Movies.Get();
-                   
+           // var movies = await proxy.Movies.Get();
 
+            Assert.ThrowsAsync<SchemaValidationException>(() => proxy.Movies.Get());
         }
 
         [Test]
