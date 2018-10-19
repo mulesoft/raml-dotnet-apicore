@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("RAML.Api.Core")]
-[assembly: AssemblyDescription("Core API support classes for the RAML tools package")]
+[assembly: AssemblyDescription("Forked by Cvent on version 0.9.10 - Core API support classes for the RAML tools package")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("MuleSoft Inc")]
 [assembly: AssemblyProduct("RAML.Api.Core")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.9.10")]
-[assembly: AssemblyFileVersion("0.9.10")]
+[assembly: AssemblyVersion("0.8.4")]
+[assembly: AssemblyFileVersion("0.8.4")]
