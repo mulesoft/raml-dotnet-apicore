@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("RAML.Api.Core")]
-[assembly: AssemblyDescription("Forked by Cvent on version 0.9.10 - Core API support classes for the RAML tools package")]
+[assembly: AssemblyDescription("Core API support classes for the RAML tools package")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("MuleSoft Inc")]
 [assembly: AssemblyProduct("RAML.Api.Core")]

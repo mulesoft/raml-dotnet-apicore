@@ -10,7 +10,7 @@
 	<licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
 	<iconUrl>http://raml.org/images/logo.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>Forked by Cvent on version 0.9.10 - Core API support classes for the RAML tools package</description>
+    <description>Core API support classes for the RAML tools package</description>
     <copyright>Copyright © 2015 MuleSoft</copyright>
     <tags>RAML REST API SCHEMA MARKUP CLIENT SERVICE</tags>
       <dependencies>
