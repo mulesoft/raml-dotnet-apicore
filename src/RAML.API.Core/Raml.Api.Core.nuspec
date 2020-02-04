@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>RAML.Api.Core</id>
-    <version>0.9.10</version>
+    <version>0.10.1</version>
     <title>RAML.Api.Core</title>
     <authors>MuleSoft Inc</authors>
     <owners>MuleSoft Inc</owners>
@@ -14,7 +14,6 @@
     <copyright>Copyright © 2015 MuleSoft</copyright>
     <tags>RAML REST API SCHEMA MARKUP CLIENT SERVICE</tags>
       <dependencies>
-          <dependency id="Microsoft.Net.Http" version="2.2.29" />
           <dependency id="Newtonsoft.Json" version="6.0.4" />
       </dependencies>
   </metadata>
